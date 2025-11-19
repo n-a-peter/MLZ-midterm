@@ -33,7 +33,7 @@ client_2 = {
     'bank_asset_value': 4900000
 }
 
-approval = requests.post(url, json=client_2).json()
+approval = requests.post(url, json=client).json()
 print("Probability of approval = ", approval)
 
 
