@@ -1,12 +1,13 @@
 FROM python:3.12.1-slim-bookworm
 
-RUN pip install uv
+# This can either be used or COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+#RUN pip install uv
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
-ENV PATH="/code/.venv/bin:$PATH"
+ENV PATH="/app/.venv/bin:$PATH"
 
 COPY "pyproject.toml" "uv.lock" ".python-version" "./"
 
@@ -16,4 +17,4 @@ COPY "predict.py" "model.bin" "./"
 
 EXPOSE 9696
 
-ENTRYPOINT ["uv", "run", "uvicorn", "predict:app", "--host", "0.0.0.0", "--port", "9696"]
+ENTRYPOINT ["uvicorn", "predict:app", "--host", "0.0.0.0", "--port", "9696"]

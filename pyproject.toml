@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "awsebcli>=3.25.3",
     "fastapi>=0.121.3",
     "scikit-learn>=1.7.2",
     "uvicorn>=0.38.0",
@@ -12,5 +13,6 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "awsebcli>=3.25.3",
     "requests>=2.32.5",
 ]
