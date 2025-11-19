@@ -11,8 +11,8 @@ with open("model.bin", "rb") as f_in:
 
 @app.post("/predict")
 def predict_status(customer: Dict[str, Any]):
-    loan_status = pipeline.predict_proba(customer)[0, 1]
-    loan_status = float(loan_status)
+    loan_status = pipeline.predict_proba(customer)[:, 1]
+    loan_status = float(loan_status[0])
     return {
         "loan probability": loan_status,
         "approved" : bool(loan_status >= 0.5)
