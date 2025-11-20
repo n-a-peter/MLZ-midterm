@@ -1,7 +1,10 @@
 import requests
 
-url = "http://0.0.0.0:9696/predict"
-#url = "http://localhost:9696/predict"
+#url = "http://localhost:9696/predict"  # docker and FastAPI url
+
+url = "http://loan-serving-env.eba-3fmg4qvv.us-east-1.elasticbeanstalk.com/predict" # cloud url
+
+#cloud_host_address = "loan-serving-env.eba-3fmg4qvv.us-east-1.elasticbeanstalk.com"
 
 # client in test data that was not approved.
 client = {
