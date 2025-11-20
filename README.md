@@ -59,3 +59,17 @@ This requires renting a virtual EC2 machine on AWS, SSHing into it, and then ins
 url = "http://loan-serving-env.eba-3fmg4qvv.us-east-1.elasticbeanstalk.com/predict"
 
 You would need to comment the docker url and then uncomment this cloud url to test it.
+
+The following pictures are screenshots of the model deployment in action:
+
+![Commandline deployment code](screenshots/Deployment_command_line.PNG)
+
+![Cloud deployment running](screenshots/Cloud_deployment_running.PNG)
+
+![Cloud loan-serving-environment](screenshots/Cloud_environment.PNG)
+
+![Predictions from cloud service](screenshots/predictions_from_cloud_service.PNG)
+
+![Termination of cloud service](screenshots/terminating_cloud_service.PNG)
+
+![Terminated instances](screenshots/Terminated_instances.PNG)
