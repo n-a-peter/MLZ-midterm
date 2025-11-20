@@ -63,13 +63,24 @@ You would need to comment the docker url and then uncomment this cloud url to te
 The following pictures are screenshots of the model deployment in action:
 
 ![Commandline deployment code](screenshots/Deployment_command_line.PNG)
+Command line code for the deployment.
+
 
 ![Cloud deployment running](screenshots/Cloud_deployment_running.PNG)
+Cloud service can be seen running under cloud applications.
+
 
 ![Cloud loan-serving-environment](screenshots/Cloud_environment.PNG)
+Cloud service can be seen running under environments.
+
 
 ![Predictions from cloud service](screenshots/predictions_from_cloud_service.PNG)
+Predictions can be made by running test.py in the virtual environment and with different queries we get differnt results.
+
 
 ![Termination of cloud service](screenshots/terminating_cloud_service.PNG)
+Terminating the could service with "eb terminate"
+
 
 ![Terminated instances](screenshots/Terminated_instances.PNG)
+Terminated instances in the cloud.
