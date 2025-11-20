@@ -1,6 +1,6 @@
 # Predicting loan approval or refusal
 
-This project trains a model on a dataset to determing is an individual's request for a loan should be approved or not. It is important to guage a person's capacity to repay a loan otherwise lenders such as banks will lose money withougt any guarantee of repayment. Certain characteristics or features associated with people can determine the likelihood that their loan request will be approved.
+This project trains a model on a dataset to determing if an individual's request for a loan should be approved or not. It is important to guage a person's capacity to repay a loan otherwise lenders such as banks will lose money withougt any guarantee of repayment. Certain characteristics or features associated with people can determine the likelihood that their loan request will be approved.
 
 ## Project files
 - The dataset is "loan-approval-dataset.csv.
@@ -10,6 +10,27 @@ This project trains a model on a dataset to determing is an individual's request
 - The script used to deploy the model online as a webservice is "predict.py"
 - The script used to predict new users is in "test.py"
 - The script used to manage the cloud deployment dependencies is in "Dockerfile"
+
+## How to make use of this repository (repo for short)
+To make use of this repository and run the codes to train the model and test predictions do the following in a terminal (preferably linux-like):
+- clone the repository: "git clone [repo url]"
+- change directory to the repo: "cd [repo name]"
+- Install uv : "pip install uv" or "sudo apt install uv"
+- Install the virtual environment: "uv sync --locked"
+- Run the train.py script: "uv run python train.py"
+- Run the predict.py script: "uv run predict.py"
+- Uncomment the url for FastAPI in test.py script and then in a new terminal: "uv run python test.py"
+- Kill the webservice then build the docker image: "docker build -t predict-loan-status ."
+- Run the docker image "docker run -it --rm -p 9696:9696 predict-loan-status"
+- In a new terminal run : "uv run python test.py"
+- SSH into an virtual machine in the cloud and repeat the steps above.
+- Then for elastic bean stalk run: uv run eb init –p docker –r [region] loan-serving-env
+- Then run: "uv run eb create loan-serving-env".
+- Modifie the url in test.py script to the cloud url you get after the previous step.
+- Then run: "uv run python test.py"
+- Finally terminate the instance: "uv run eb terminate loan-serving-env"
+- Type the name of the enviroment at the prompt request and wait until it shuts down.
+- Shut down the EC2 instance.
 
 ## Exploratory data analysys
 Exploratory data analysis was performed on the dataset. There are no missing values, however the column names contain some extra white spaces which had to be removed. Also the loan-status decision of 'Approved' or 'Rejected' were converted to integers '1' and '0' respectively. This loan-status variable is our target variable which we would like to predict. There was also a redundant loan_id column that was deleted from the dataset.
@@ -30,7 +51,7 @@ For the DecisionTreeClassifier, we tuned the max_depth parameter and number of e
 
 For the RandomForestClassifier, we found the optimal number of estimators to be 60, and the maximum depth to be 10 resulting in an roc_auc_score of 0.992 and an rmse of 0.14.
 
-Comparing the three classifiers above the DecisionTreeClassifier has the best combined values for the roc_auc_score and the rmse. Hence we chose this classifier as the best and used it to train the combined train and validation data sets. We finally tested it's performance on the test dataset and obtained an roc_auc_score of 0.996 and an rmse of 0.14, which shows that the model is able to predict unseen values very accurately.
+Comparing the three classifiers above the DecisionTreeClassifier has the best combined values for the roc_auc_score and the rmse. Hence we chose this classifier as the best and used it to train the combined train and validation data sets. We finally tested its performance on the test dataset and obtained an roc_auc_score of 0.996 and an rmse of 0.14, which shows that the model is able to predict unseen values very accurately.
 
 ## Deploying resulting ML model as a web service
 To make this model useful to external party (e.g. the credit analyst in the bank), is it necessary for the model to be hosted where it can be easily accessed. Hosting it as a web service fulfils this condition. Here we first save the model as a script and then use FastAPI with uvicorn to deploy it as a web service. This web service can be queried with new user information through the following url below:
@@ -45,7 +66,7 @@ docker run -it --rm -p 9696:9696 predict-loan-status
 
 To evaluate a customer's loan request, we can run:
 
-python test.py
+uv run python test.py
 
 and the result of the evaluation will be displayed in the command line.
 
