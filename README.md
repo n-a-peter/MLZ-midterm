@@ -22,3 +22,31 @@ For the DecisionTreeClassifier, we tuned the max_depth parameter and number of e
 For the RandomForestClassifier, we found the optimal number of estimators to be 60, and the maximum depth to be 10 resulting in an roc_auc_score of 0.992 and an rmse of 0.14.
 
 Comparing the three classifiers above the DecisionTreeClassifier has the best combined values for the roc_auc_score and the rmse. Hence we chose this classifier as the best and used it to train the combined train and validation data sets. We finally tested it's performance on the test dataset and obtained an roc_auc_score of 0.996 and an rmse of 0.14, which shows that the model is able to predict unseen values very accurately.
+
+## Deploying resulting ML model as a web service
+To make this model useful to external party (e.g. the credit analyst in the bank), is it necessary for the model to be hosted where it can be easily accessed. Hosting it as a web service fulfils this condition. Here we first save the model as a script and then use FastAPI with uvicorn to deploy it as a web service. This web service can be queried with new user information through the following url below:
+
+url = "http://localhost:9696/predict"
+
+To deal with dependencies, we can use virtual environment such as those defined with uv to isolate versions of libraries to our web service. We could also go a step further to containerise our webservice which will facilitate deployment to the cloud. We use docker for such a containerization. After creating a dockerfile and doing the containerization with the commands below, the webservice can still be accessed through the same url above.
+
+docker build -t predict-loan-status .
+
+docker run -it --rm -p 9696:9696 predict-loan-status
+
+To evaluate a customer's loan request, we can run:
+
+python test.py
+
+and the result of the evaluation will be displayed in the command line.
+
+
+## Deploying resulting web service in the cloud
+
+Containerization makes the web service suitable for deployment in the cloud. For this, we would use elastic bean stalk.
+
+This requires renting a virtual EC2 machine on AWS, SSHing into it, and then installing the required libraries. Next we install the aws elastic bean stalk command line interface "awsebcli" and use it to deploy our webservice to the cloud. Upon deployment, the webservice can be queried using the following url from the test.py script.
+
+url = "http://loan-serving-env.eba-3fmg4qvv.us-east-1.elasticbeanstalk.com/predict"
+
+You would need to comment the docker url and then uncomment this cloud url to test it.
