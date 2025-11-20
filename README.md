@@ -2,6 +2,15 @@
 
 This project trains a model on a dataset to determing is an individual's request for a loan should be approved or not. It is important to guage a person's capacity to repay a loan otherwise lenders such as banks will lose money withougt any guarantee of repayment. Certain characteristics or features associated with people can determine the likelihood that their loan request will be approved.
 
+## Project files
+- The dataset is "loan-approval-dataset.csv.
+- The jupyter notebook is "loan_approval.ipynb" and contains the exploratory data analysis and model evaluation and predictions.
+- The final ML model trained is in "train.py"
+- The saved ML model is "model.bin".
+- The script used to deploy the model online as a webservice is "predict.py"
+- The script used to predict new users is in "test.py"
+- The script used to manage the cloud deployment dependencies is in "Dockerfile"
+
 ## Exploratory data analysys
 Exploratory data analysis was performed on the dataset. There are no missing values, however the column names contain some extra white spaces which had to be removed. Also the loan-status decision of 'Approved' or 'Rejected' were converted to integers '1' and '0' respectively. This loan-status variable is our target variable which we would like to predict. There was also a redundant loan_id column that was deleted from the dataset.
 
